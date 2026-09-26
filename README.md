@@ -1,2236 +1,2098 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PharmaCare | Medicine & Health Consultation</title>
-
-<style>
-:root{
-    --pink:#e8a9bd;
-    --pink-soft:#fdf1f5;
-    --pink-light:#fff8fa;
-    --pink-dark:#b85c7b;
-    --pink-deep:#963f60;
-    --white:#ffffff;
-    --text:#4a3940;
-    --muted:#806d74;
-    --border:#f0dce3;
-    --shadow:0 8px 25px rgba(150,63,96,.10);
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:linear-gradient(135deg,#fff8fa,#fdf1f5,#fff);
-    color:var(--text);
-    line-height:1.6;
-}
-
-/* HEADER */
-header{
-    background:linear-gradient(135deg,#e8a9bd,#d98ca7);
-    color:white;
-    padding:25px 18px 28px;
-    text-align:center;
-    border-radius:0 0 30px 30px;
-    box-shadow:var(--shadow);
-}
-
-.logo{
-    font-size:35px;
-    margin-bottom:5px;
-}
-
-header h1{
-    font-size:28px;
-    letter-spacing:.5px;
-}
-
-.tagline{
-    font-size:13px;
-    opacity:.95;
-    margin-top:3px;
-}
-
-/* NAV */
-nav{
-    position:sticky;
-    top:0;
-    z-index:999;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-    box-shadow:0 3px 15px rgba(0,0,0,.06);
-}
-
-.nav-inner{
-    max-width:1100px;
-    margin:auto;
-    display:flex;
-    justify-content:center;
-    gap:5px;
-    overflow-x:auto;
-    white-space:nowrap;
-    padding:9px 8px;
-}
-
-nav button{
-    border:none;
-    background:transparent;
-    color:var(--pink-deep);
-    font-weight:bold;
-    font-size:13px;
-    padding:8px 11px;
-    border-radius:20px;
-    cursor:pointer;
-}
-
-nav button:hover{
-    background:var(--pink-soft);
-}
-
-/* CONTAINER */
-.container{
-    width:92%;
-    max-width:1100px;
-    margin:auto;
-}
-
-.page{
-    display:none;
-    padding:30px 0 45px;
-    animation:fade .25s ease;
-}
-
-.page.active{
-    display:block;
-}
-
-@keyframes fade{
-    from{opacity:0;transform:translateY(5px)}
-    to{opacity:1;transform:translateY(0)}
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:30px 18px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:28px;
-    box-shadow:var(--shadow);
-}
-
-.hero-icon{
-    font-size:60px;
-}
-
-.hero h2{
-    color:var(--pink-deep);
-    font-size:30px;
-    margin:8px 0;
-}
-
-.hero p{
-    max-width:700px;
-    margin:auto;
-    color:var(--muted);
-}
-
-/* SEARCH */
-.search-box{
-    margin:22px auto 0;
-    max-width:700px;
-    display:flex;
-    background:white;
-    border:2px solid #f1ccd8;
-    border-radius:18px;
-    overflow:hidden;
-}
-
-.search-box input{
-    flex:1;
-    border:none;
-    outline:none;
-    padding:14px;
-    font-size:14px;
-}
-
-.search-box button{
-    border:none;
-    background:var(--pink-dark);
-    color:white;
-    padding:0 18px;
-    cursor:pointer;
-}
-
-/* SECTION TITLE */
-.section-title{
-    text-align:center;
-    color:var(--pink-deep);
-    font-size:24px;
-    margin-bottom:20px;
-}
-
-/* CARDS */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-}
-
-.card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:18px;
-    box-shadow:var(--shadow);
-    transition:.25s;
-}
-
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 30px rgba(150,63,96,.16);
-}
-
-.clickable{
-    cursor:pointer;
-}
-
-.card-icon{
-    font-size:35px;
-    margin-bottom:8px;
-}
-
-.card h3{
-    color:var(--pink-deep);
-    font-size:17px;
-    margin-bottom:6px;
-}
-
-.card p{
-    font-size:13px;
-    color:var(--muted);
-}
-
-/* BUTTON */
-.btn{
-    display:inline-block;
-    border:none;
-    background:var(--pink-dark);
-    color:white;
-    padding:11px 18px;
-    border-radius:12px;
-    font-weight:bold;
-    cursor:pointer;
-    text-decoration:none;
-    transition:.2s;
-}
-
-.btn:hover{
-    background:var(--pink-deep);
-    transform:translateY(-2px);
-}
-
-.btn-light{
-    background:var(--pink-soft);
-    color:var(--pink-deep);
-}
-
-/* HOME FEATURES */
-.feature-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-top:25px;
-}
-
-/* CATEGORY */
-.category-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
-
-.category{
-    text-align:center;
-    padding:22px 12px;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    cursor:pointer;
-    transition:.25s;
-}
-
-.category:hover{
-    transform:translateY(-4px);
-    background:var(--pink-soft);
-}
-
-.category-icon{
-    font-size:38px;
-}
-
-.category h3{
-    color:var(--pink-deep);
-    margin-top:6px;
-    font-size:15px;
-}
-
-/* MEDICINE */
-.medicine-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.medicine-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    cursor:pointer;
-    transition:.25s;
-}
-
-.medicine-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 13px 30px rgba(150,63,96,.17);
-}
-
-.medicine-image{
-    height:190px;
-    background:var(--pink-soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-}
-
-.medicine-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.image-placeholder{
-    text-align:center;
-    color:var(--pink-dark);
-}
-
-.image-placeholder span{
-    display:block;
-    font-size:55px;
-}
-
-.medicine-content{
-    padding:16px;
-}
-
-.medicine-content h3{
-    color:var(--pink-deep);
-    margin-bottom:5px;
-}
-
-.medicine-content p{
-    font-size:13px;
-    color:var(--muted);
-}
-
-.status{
-    display:inline-block;
-    background:#fcecf2;
-    color:var(--pink-deep);
-    border-radius:20px;
-    padding:4px 9px;
-    font-size:11px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-/* DETAIL */
-.detail-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:25px;
-    box-shadow:var(--shadow);
-    padding:22px;
-}
-
-.detail-top{
-    display:grid;
-    grid-template-columns:320px 1fr;
-    gap:25px;
-    align-items:start;
-}
-
-.detail-image{
-    height:300px;
-    background:var(--pink-soft);
-    border-radius:20px;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.detail-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.detail-title{
-    color:var(--pink-deep);
-    font-size:28px;
-}
-
-.info-list{
-    margin-top:15px;
-}
-
-.info-row{
-    padding:10px 0;
-    border-bottom:1px solid #f2e3e8;
-    font-size:14px;
-}
-
-.info-row strong{
-    color:var(--pink-deep);
-}
-
-.warning{
-    background:#fff6df;
-    border-left:5px solid #e4ad46;
-    padding:15px;
-    border-radius:12px;
-    margin-top:18px;
-    font-size:13px;
-}
-
-/* HEALTH DETAIL */
-.article{
-    background:white;
-    border-radius:22px;
-    padding:23px;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-}
-
-.article h3{
-    color:var(--pink-deep);
-    margin:18px 0 7px;
-}
-
-.article p,
-.article li{
-    font-size:14px;
-    color:var(--text);
-}
-
-.article ul{
-    padding-left:22px;
-}
-
-/* COUNSELOR */
-.profile-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.profile{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:22px;
-    text-align:center;
-    box-shadow:var(--shadow);
-    cursor:pointer;
-    transition:.25s;
-}
-
-.profile:hover{
-    transform:translateY(-4px);
-}
-
-.avatar{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--pink-soft);
-    font-size:35px;
-}
-
-.online{
-    display:inline-block;
-    color:#27815a;
-    background:#e9f8f0;
-    padding:4px 10px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-/* FORM */
-.form-card{
-    max-width:650px;
-    margin:auto;
-    background:white;
-    padding:23px;
-    border-radius:22px;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-}
-
-.form-group{
-    margin-bottom:15px;
-}
-
-.form-group label{
-    display:block;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:6px;
-    color:var(--pink-deep);
-}
-
-.form-group input,
-.form-group textarea{
-    width:100%;
-    border:1px solid #e8d2da;
-    border-radius:12px;
-    padding:12px;
-    outline:none;
-    font-family:inherit;
-}
-
-.form-group textarea{
-    min-height:130px;
-    resize:vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus{
-    border-color:var(--pink);
-}
-
-/* LOGIN */
-.login-card{
-    max-width:450px;
-    margin:auto;
-    background:white;
-    padding:25px;
-    border-radius:24px;
-    box-shadow:var(--shadow);
-    border:1px solid var(--border);
-}
-
-/* BACK */
-.back{
-    margin-bottom:18px;
-}
-
-/* ANTIBIOTIC */
-.antibiotic-note{
-    background:#fff0f4;
-    border:1px solid #e8bdcc;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:22px;
-}
-
-.antibiotic-note h3{
-    color:var(--pink-deep);
-    margin-bottom:8px;
-}
-
-.antibiotic-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:18px;
-    box-shadow:var(--shadow);
-}
-
-.antibiotic-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-/* FOOTER */
-footer{
-    background:#9e526e;
-    color:white;
-    text-align:center;
-    padding:28px 18px;
-    margin-top:30px;
-}
-
-footer h3{
-    font-size:20px;
-}
-
-footer p{
-    font-size:12px;
-    margin-top:5px;
-    opacity:.95;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-    .grid,
-    .category-grid{
-        grid-template-columns:repeat(2,1fr);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PharmaCare | Your Guide to Medicine & Health Consultation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", Arial, sans-serif;
     }
 
-    .medicine-grid{
-        grid-template-columns:repeat(2,1fr);
+    body {
+      background: #fff7fa;
+      color: #4b3b42;
+      line-height: 1.7;
     }
 
-    .profile-grid{
-        grid-template-columns:1fr;
+    /* ================= HEADER ================= */
+
+    header {
+      background: linear-gradient(135deg, #f6c6d8, #eeb3ca);
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 15px rgba(120, 70, 90, 0.12);
     }
 
-    .feature-grid{
-        grid-template-columns:1fr;
+    .logo {
+      font-size: 27px;
+      font-weight: 700;
+      color: #8f4566;
     }
 
-    .detail-top{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:600px){
-
-    header h1{
-        font-size:25px;
+    .tagline-small {
+      font-size: 11px;
+      color: #704657;
     }
 
-    .hero h2{
-        font-size:23px;
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .grid,
-    .category-grid,
-    .medicine-grid,
-    .antibiotic-grid{
-        grid-template-columns:1fr;
+    nav button {
+      border: none;
+      background: transparent;
+      color: #633d4d;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
     }
 
-    .container{
-        width:93%;
+    nav button:hover {
+      background: #fff;
+      color: #a64f73;
     }
 
-    .page{
-        padding-top:23px;
+    /* ================= PAGE ================= */
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
     }
 
-    .section-title{
-        font-size:21px;
+    .page.active {
+      display: block;
     }
 
-    nav button{
-        font-size:11px;
-        padding:7px 9px;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .detail-title{
-        font-size:23px;
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: auto;
     }
 
-    .detail-image{
-        height:240px;
+    /* ================= HERO ================= */
+
+    .hero {
+      background: linear-gradient(135deg, #fde7ef, #fff);
+      padding: 70px 20px;
+      text-align: center;
     }
-}
-</style>
+
+    .hero h1 {
+      color: #914866;
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .hero h2 {
+      color: #6f4757;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 750px;
+      margin: auto;
+      color: #67545c;
+    }
+
+    .search-box {
+      max-width: 700px;
+      margin: 30px auto 0;
+      display: flex;
+      background: white;
+      padding: 7px;
+      border-radius: 40px;
+      box-shadow: 0 5px 20px rgba(150, 70, 100, 0.12);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 18px;
+      border-radius: 30px;
+      font-size: 15px;
+    }
+
+    .btn {
+      border: none;
+      background: #b65d82;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #934965;
+      transform: translateY(-2px);
+    }
+
+    /* ================= SECTION ================= */
+
+    section.content {
+      padding: 55px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      color: #914866;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #77656c;
+    }
+
+    /* ================= CARD ================= */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 5px 18px rgba(100, 60, 80, 0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(100, 60, 80, 0.14);
+    }
+
+    .card h3 {
+      color: #934b69;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #6f6065;
+      font-size: 14px;
+    }
+
+    .card-icon {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    /* ================= CATEGORY ================= */
+
+    .category-card {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .category-card .card-icon {
+      font-size: 42px;
+    }
+
+    /* ================= MEDICINE ================= */
+
+    .medicine-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .medicine-img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #fff1f6;
+      padding: 15px;
+    }
+
+    .medicine-content {
+      padding: 20px;
+    }
+
+    .medicine-content h3 {
+      margin-bottom: 5px;
+    }
+
+    .medicine-content .active {
+      color: #8a6672;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .medicine-detail {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(100, 60, 80, 0.08);
+    }
+
+    .detail-image {
+      width: 250px;
+      max-width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #fff1f6;
+      border-radius: 15px;
+      padding: 15px;
+      display: block;
+      margin: 0 auto 25px;
+    }
+
+    .detail-list {
+      margin-top: 20px;
+    }
+
+    .detail-item {
+      padding: 13px 0;
+      border-bottom: 1px solid #f1dce5;
+    }
+
+    .detail-item strong {
+      color: #914866;
+    }
+
+    /* ================= INFO BOX ================= */
+
+    .info-box {
+      background: #fde9f0;
+      border-left: 5px solid #b65d82;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .warning-box {
+      background: #fff2e6;
+      border-left: 5px solid #d58a4b;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    /* ================= PHARMACIST ================= */
+
+    .pharmacist-card {
+      text-align: center;
+    }
+
+    .avatar {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      background: #f5c5d7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+    }
+
+    .status {
+      display: inline-block;
+      background: #e3f7e9;
+      color: #31804b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 8px 0;
+    }
+
+    /* ================= FORM ================= */
+
+    .form-card {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(100, 60, 80, 0.08);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #704657;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid #e8cbd6;
+      padding: 13px;
+      border-radius: 12px;
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #b65d82;
+    }
+
+    /* ================= BACK BUTTON ================= */
+
+    .back-btn {
+      margin-bottom: 20px;
+      background: #f3d2df;
+      color: #744558;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #8f4566;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    footer p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px) {
+
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        gap: 3px;
+      }
+
+      nav button {
+        font-size: 12px;
+        padding: 7px 8px;
+      }
+
+      .hero {
+        padding: 50px 15px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero h2 {
+        font-size: 17px;
+      }
+
+      .search-box {
+        flex-direction: column;
+        background: transparent;
+        box-shadow: none;
+        gap: 8px;
+      }
+
+      .search-box input {
+        background: white;
+        box-shadow: 0 3px 12px rgba(100, 60, 80, 0.08);
+      }
+
+      .search-box .btn {
+        width: 100%;
+      }
+
+      .container {
+        width: 92%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .card-icon {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .section-title h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
-    <div class="logo">🌸💊</div>
-    <h1>PharmaCare</h1>
-    <div class="tagline">
-        Your Guide to Medicine & Health Consultation
+
+  <div>
+    <div class="logo">🌸 PharmaCare</div>
+    <div class="tagline-small">
+      Your Guide to Medicine & Health Consultation
     </div>
+  </div>
+
+  <nav>
+    <button onclick="showPage('home')">🏠 Home</button>
+    <button onclick="showPage('obat')">💊 Obat</button>
+    <button onclick="showPage('kesehatan')">📚 Informasi Kesehatan</button>
+    <button onclick="showPage('konseling')">🩺 Konseling Apoteker</button>
+    <button onclick="showPage('penting')">⚠️ Informasi Penting</button>
+    <button onclick="showPage('kontak')">📞 Kontak</button>
+  </nav>
+
 </header>
 
-<!-- NAVIGATION -->
-<nav>
-<div class="nav-inner">
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('obat')">Obat</button>
-    <button onclick="showPage('kesehatan')">Informasi Kesehatan</button>
-    <button onclick="showPage('konseling')">Konseling Apoteker</button>
-    <button onclick="showPage('penting')">Informasi Penting</button>
-    <button onclick="showPage('login')">Login</button>
-</div>
-</nav>
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<main id="home" class="page active">
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>PharmaCare</h1>
+
+      <h2>Your Guide to Medicine & Health Consultation</h2>
+
+      <p>
+        PharmaCare merupakan website informasi obat dan kesehatan
+        yang membantu masyarakat memperoleh informasi mengenai obat,
+        penggunaan obat yang tepat, edukasi kesehatan, serta konsultasi
+        dengan apoteker.
+      </p>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Cari nama obat, zat aktif, atau kategori..."
+          onkeydown="if(event.key==='Enter') searchMedicine()"
+        >
+
+        <button class="btn" onclick="searchMedicine()">
+          🔍 Cari Obat
+        </button>
+
+      </div>
+
+      <div id="searchResult"></div>
+
+    </div>
+
+  </section>
 
 
-<main class="container">
+  <section class="content">
 
-<!-- ================= HOME ================= -->
-<section id="home" class="page active">
+    <div class="container">
 
-    <div class="hero">
+      <div class="section-title">
 
-        <div class="hero-icon">💊</div>
-
-        <h2>Selamat Datang di PharmaCare</h2>
+        <h2>Kategori Obat</h2>
 
         <p>
-            PharmaCare adalah website informasi obat dan kesehatan
-            yang dirancang untuk membantu masyarakat mendapatkan
-            informasi edukatif mengenai obat, kesehatan, dan konsultasi
-            kefarmasian dengan tampilan sederhana dan mudah digunakan.
+          Pilih kategori untuk melihat daftar obat yang tersedia.
         </p>
 
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Cari nama obat, zat aktif, atau kategori..."
-                onkeydown="if(event.key==='Enter') searchMedicine()">
+      </div>
 
-            <button onclick="searchMedicine()">🔍 Cari</button>
+      <div class="grid">
+
+        <div class="card category-card" onclick="openCategory('Demam')">
+          <div class="card-icon">🌡️</div>
+          <h3>Demam</h3>
+          <p>Informasi obat yang digunakan untuk membantu mengatasi demam.</p>
         </div>
 
-        <div id="searchResult" style="margin-top:15px;"></div>
+        <div class="card category-card" onclick="openCategory('Nyeri')">
+          <div class="card-icon">💊</div>
+          <h3>Nyeri</h3>
+          <p>Informasi mengenai obat untuk membantu meredakan nyeri.</p>
+        </div>
 
-        <br>
+        <div class="card category-card" onclick="openCategory('Maag')">
+          <div class="card-icon">🫃</div>
+          <h3>Maag</h3>
+          <p>Informasi obat untuk keluhan lambung dan asam lambung.</p>
+        </div>
 
-        <button class="btn" onclick="showPage('login')">
-            🔐 Login
-        </button>
+        <div class="card category-card" onclick="openCategory('Sembelit')">
+          <div class="card-icon">🌿</div>
+          <h3>Sembelit</h3>
+          <p>Informasi mengenai obat yang digunakan pada sembelit.</p>
+        </div>
+
+        <div class="card category-card" onclick="openCategory('Diare')">
+          <div class="card-icon">💧</div>
+          <h3>Diare</h3>
+          <p>Informasi obat dan penanganan awal pada diare.</p>
+        </div>
+
+        <div class="card category-card" onclick="openCategory('Alergi')">
+          <div class="card-icon">🤧</div>
+          <h3>Alergi</h3>
+          <p>Informasi obat yang digunakan untuk membantu mengatasi alergi.</p>
+        </div>
+
+        <div class="card category-card" onclick="openCategory('Flu dan Batuk')">
+          <div class="card-icon">😷</div>
+          <h3>Flu dan Batuk</h3>
+          <p>Informasi mengenai obat untuk gejala flu dan batuk.</p>
+        </div>
+
+        <div class="card category-card" onclick="openCategory('Vitamin')">
+          <div class="card-icon">🍊</div>
+          <h3>Vitamin</h3>
+          <p>Informasi vitamin dan penggunaannya secara tepat.</p>
+        </div>
+
+      </div>
 
     </div>
 
-
-    <h2 class="section-title" style="margin-top:35px;">
-        💊 Kategori Obat
-    </h2>
-
-    <div class="category-grid">
-
-        <div class="category" onclick="openCategory('Demam')">
-            <div class="category-icon">🌡️</div>
-            <h3>Demam</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Nyeri')">
-            <div class="category-icon">🩹</div>
-            <h3>Nyeri</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Maag')">
-            <div class="category-icon">🫃</div>
-            <h3>Maag</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Sembelit')">
-            <div class="category-icon">🥗</div>
-            <h3>Sembelit</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Diare')">
-            <div class="category-icon">💧</div>
-            <h3>Diare</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Alergi')">
-            <div class="category-icon">🤧</div>
-            <h3>Alergi</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Flu dan Batuk')">
-            <div class="category-icon">😷</div>
-            <h3>Flu dan Batuk</h3>
-        </div>
-
-        <div class="category" onclick="openCategory('Vitamin')">
-            <div class="category-icon">🍊</div>
-            <h3>Vitamin</h3>
-        </div>
-
-    </div>
+  </section>
 
 
-    <h2 class="section-title" style="margin-top:35px;">
-        ✨ Fitur PharmaCare
-    </h2>
+  <section class="content">
 
-    <div class="feature-grid">
+    <div class="container">
 
-        <div class="card clickable" onclick="showPage('kesehatan')">
-            <div class="card-icon">📚</div>
-            <h3>Informasi Kesehatan</h3>
-            <p>
-                Pelajari berbagai informasi kesehatan yang
-                mudah dipahami.
-            </p>
-        </div>
+      <div class="section-title">
 
-        <div class="card clickable" onclick="showPage('konseling')">
-            <div class="card-icon">👩‍⚕️</div>
-            <h3>Konseling Apoteker</h3>
-            <p>
-                Konsultasikan pertanyaan mengenai penggunaan obat
-                kepada apoteker.
-            </p>
-        </div>
+        <h2>Layanan PharmaCare</h2>
 
-        <div class="card clickable" onclick="showPage('penting')">
-            <div class="card-icon">⚠️</div>
-            <h3>Informasi Penting</h3>
-            <p>
-                Pelajari penggunaan antibiotik secara tepat dan aman.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= OBAT ================= -->
-<section id="obat" class="page">
-
-    <h2 class="section-title">💊 Informasi Obat</h2>
-
-    <div id="categoryList">
-
-        <p style="text-align:center;color:var(--muted);margin-bottom:18px;">
-            Pilih kategori obat untuk melihat daftar obat.
+        <p>
+          Informasi dan layanan yang dapat membantu Anda memahami
+          penggunaan obat dan kesehatan.
         </p>
 
-        <div class="category-grid">
+      </div>
 
-            <div class="category" onclick="openCategory('Demam')">
-                <div class="category-icon">🌡️</div>
-                <h3>Demam</h3>
-            </div>
+      <div class="grid">
 
-            <div class="category" onclick="openCategory('Nyeri')">
-                <div class="category-icon">🩹</div>
-                <h3>Nyeri</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Maag')">
-                <div class="category-icon">🫃</div>
-                <h3>Maag</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Sembelit')">
-                <div class="category-icon">🥗</div>
-                <h3>Sembelit</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Diare')">
-                <div class="category-icon">💧</div>
-                <h3>Diare</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Alergi')">
-                <div class="category-icon">🤧</div>
-                <h3>Alergi</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Flu dan Batuk')">
-                <div class="category-icon">😷</div>
-                <h3>Flu dan Batuk</h3>
-            </div>
-
-            <div class="category" onclick="openCategory('Vitamin')">
-                <div class="category-icon">🍊</div>
-                <h3>Vitamin</h3>
-            </div>
-
+        <div class="card">
+          <div class="card-icon">💊</div>
+          <h3>Informasi Obat</h3>
+          <p>
+            Temukan informasi mengenai nama dagang, zat aktif,
+            kekuatan, indikasi, aturan penggunaan, efek samping,
+            penyimpanan, dan peringatan obat.
+          </p>
         </div>
+
+        <div class="card">
+          <div class="card-icon">📚</div>
+          <h3>Informasi Kesehatan</h3>
+          <p>
+            Pelajari berbagai informasi mengenai penggunaan obat
+            yang benar, penyimpanan obat, membaca label, dan
+            pengelolaan obat di rumah.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🩺</div>
+          <h3>Konseling Apoteker</h3>
+          <p>
+            Ajukan pertanyaan kepada apoteker mengenai penggunaan
+            obat, aturan pakai, efek samping, dan hal lain yang
+            berkaitan dengan penggunaan obat.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚠️</div>
+          <h3>Informasi Penting</h3>
+          <p>
+            Ketahui informasi penting mengenai penggunaan antibiotik
+            yang tepat untuk mencegah penggunaan obat secara tidak
+            bertanggung jawab.
+          </p>
+        </div>
+
+      </div>
 
     </div>
 
-    <div id="medicineList" style="display:none;"></div>
-
-    <div id="medicineDetail" style="display:none;"></div>
-
-</section>
-
-
-<!-- ================= KESEHATAN ================= -->
-<section id="kesehatan" class="page">
-
-    <h2 class="section-title">📚 Informasi Kesehatan</h2>
-
-    <div id="healthList" class="grid">
-
-        <div class="card clickable" onclick="openHealth('pola')">
-            <div class="card-icon">🥗</div>
-            <h3>Pola Hidup Sehat</h3>
-            <p>Tips menjaga kesehatan melalui kebiasaan sehari-hari.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('konsumsi')">
-            <div class="card-icon">💊</div>
-            <h3>Cara Konsumsi Obat yang Benar</h3>
-            <p>Hal penting yang perlu diperhatikan saat menggunakan obat.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('simpan')">
-            <div class="card-icon">📦</div>
-            <h3>Cara Menyimpan Obat</h3>
-            <p>Ketahui cara penyimpanan obat agar kualitasnya tetap terjaga.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('etiket')">
-            <div class="card-icon">🏷️</div>
-            <h3>Cara Membaca Etiket Obat</h3>
-            <p>Mengenal informasi penting yang terdapat pada etiket.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('rumah')">
-            <div class="card-icon">🏠</div>
-            <h3>Pengelolaan Obat di Rumah</h3>
-            <p>Tips menyimpan dan memeriksa obat yang ada di rumah.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('golongan')">
-            <div class="card-icon">📋</div>
-            <h3>Mengenal Golongan Obat</h3>
-            <p>Mengenal perbedaan status dan penggunaan obat.</p>
-        </div>
-
-        <div class="card clickable" onclick="openHealth('sediaan')">
-            <div class="card-icon">💧</div>
-            <h3>Bentuk Sediaan Obat</h3>
-            <p>Mengenal tablet, kapsul, sirup, salep, dan lainnya.</p>
-        </div>
-
-    </div>
-
-    <div id="healthDetail" style="display:none;"></div>
-
-</section>
-
-
-<!-- ================= KONSELING ================= -->
-<section id="konseling" class="page">
-
-    <h2 class="section-title">👩‍⚕️ Konseling Apoteker</h2>
-
-    <p style="text-align:center;color:var(--muted);margin-bottom:22px;">
-        Pilih profil apoteker untuk membuka halaman konsultasi.
-    </p>
-
-    <div class="profile-grid">
-
-        <div class="profile" onclick="openCounselor(0)">
-            <div class="avatar">👩‍⚕️</div>
-            <h3 style="margin-top:10px;">
-                apt. Arlamadha Tri Wangsa, M.Farm
-            </h3>
-            <p>Spesialis Farmasi Komunitas</p>
-            <p>Pengalaman 7 tahun</p>
-            <span class="online">● Online</span>
-        </div>
-
-
-        <div class="profile" onclick="openCounselor(1)">
-            <div class="avatar">👨‍⚕️</div>
-            <h3 style="margin-top:10px;">
-                apt. Chandra Gardipta, M.Farm
-            </h3>
-            <p>Spesialis Farmasi Klinik</p>
-            <p>Pengalaman 10 tahun</p>
-            <span class="online">● Online</span>
-        </div>
-
-
-        <div class="profile" onclick="openCounselor(2)">
-            <div class="avatar">👩‍⚕️</div>
-            <h3 style="margin-top:10px;">
-                apt. Nastikah Syafitri, S.Farm
-            </h3>
-            <p>Apoteker</p>
-            <p>Pengalaman 4 tahun</p>
-            <span class="online">● Online</span>
-        </div>
-
-    </div>
-
-    <div id="counselorDetail" style="display:none;margin-top:25px;"></div>
-
-</section>
-
-
-<!-- ================= INFORMASI PENTING ================= -->
-<section id="penting" class="page">
-
-    <h2 class="section-title">
-        ⚠️ Informasi Penting — Antibiotik
-    </h2>
-
-    <div class="antibiotic-note">
-
-        <h3>💊 Gunakan Antibiotik dengan Tepat</h3>
-
-        <p style="font-size:14px;">
-            Antibiotik digunakan untuk menangani infeksi bakteri tertentu
-            dan bukan untuk mengobati infeksi yang disebabkan oleh virus,
-            seperti sebagian besar flu dan pilek.
-        </p>
-
-        <br>
-
-        <p style="font-size:14px;">
-            Antibiotik termasuk obat yang penggunaannya memerlukan
-            resep dokter. Jangan menggunakan antibiotik sembarangan,
-            menggunakan sisa antibiotik sebelumnya, atau memberikan
-            antibiotik kepada orang lain.
-        </p>
-
-        <br>
-
-        <ul style="font-size:14px;padding-left:20px;">
-            <li>Gunakan sesuai resep dokter.</li>
-            <li>Gunakan sesuai dosis dan durasi yang diresepkan.</li>
-            <li>Jangan menggunakan sisa antibiotik sebelumnya.</li>
-            <li>Jangan memberikan antibiotik kepada orang lain.</li>
-            <li>Antibiotik tidak digunakan untuk penyakit akibat virus.</li>
-            <li>Penggunaan yang tidak tepat dapat berkontribusi terhadap resistensi antibiotik.</li>
-            <li>Jika lupa minum, ikuti petunjuk pada resep/etiket atau tanyakan kepada apoteker.</li>
-            <li>Jangan menggandakan dosis secara sembarangan.</li>
-        </ul>
-
-    </div>
-
-
-    <div class="antibiotic-grid">
-
-        <div class="antibiotic-card clickable"
-             onclick="openAntibiotic('amoxicillin')">
-
-            <div class="card-icon">💊</div>
-
-            <h3>Amoxicillin</h3>
-
-            <p>
-                Zat aktif: Amoxicillin
-            </p>
-
-            <span class="status">
-                Obat Keras — Resep Dokter
-            </span>
-
-            <br><br>
-
-            <button class="btn">
-                Lihat Detail
-            </button>
-
-        </div>
-
-
-        <div class="antibiotic-card clickable"
-             onclick="openAntibiotic('azithromycin')">
-
-            <div class="card-icon">💊</div>
-
-            <h3>Azithromycin</h3>
-
-            <p>
-                Zat aktif: Azithromycin
-            </p>
-
-            <span class="status">
-                Obat Keras — Resep Dokter
-            </span>
-
-            <br><br>
-
-            <button class="btn">
-                Lihat Detail
-            </button>
-
-        </div>
-
-    </div>
-
-    <div id="antibioticDetail" style="display:none;margin-top:22px;"></div>
-
-</section>
-
-
-<!-- ================= LOGIN ================= -->
-<section id="login" class="page">
-
-    <h2 class="section-title">🔐 Login PharmaCare</h2>
-
-    <div class="login-card">
-
-        <p style="text-align:center;color:var(--muted);margin-bottom:20px;">
-            Silakan masukkan nama lengkap untuk masuk.
-        </p>
-
-        <div class="form-group">
-
-            <label>Nama Lengkap</label>
-
-            <input
-                type="text"
-                id="loginName"
-                placeholder="Masukkan nama lengkap">
-
-        </div>
-
-        <button class="btn" style="width:100%;" onclick="loginUser()">
-            Masuk
-        </button>
-
-        <div id="loginMessage" style="text-align:center;margin-top:15px;"></div>
-
-    </div>
-
-</section>
+  </section>
 
 </main>
 
 
-<!-- FOOTER -->
+<!-- =====================================================
+     OBAT
+===================================================== -->
+
+<section id="obat" class="page">
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>💊 Informasi Obat</h2>
+
+        <p>
+          Pilih kategori obat untuk melihat informasi lebih lengkap.
+        </p>
+
+      </div>
+
+      <div id="categoryContent">
+
+        <div class="grid">
+
+          <div class="card category-card" onclick="openCategory('Demam')">
+            <div class="card-icon">🌡️</div>
+            <h3>Demam</h3>
+            <p>Daftar obat kategori demam.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Nyeri')">
+            <div class="card-icon">💊</div>
+            <h3>Nyeri</h3>
+            <p>Daftar obat kategori nyeri.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Maag')">
+            <div class="card-icon">🫃</div>
+            <h3>Maag</h3>
+            <p>Daftar obat kategori maag.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Sembelit')">
+            <div class="card-icon">🌿</div>
+            <h3>Sembelit</h3>
+            <p>Daftar obat kategori sembelit.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Diare')">
+            <div class="card-icon">💧</div>
+            <h3>Diare</h3>
+            <p>Daftar obat kategori diare.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Alergi')">
+            <div class="card-icon">🤧</div>
+            <h3>Alergi</h3>
+            <p>Daftar obat kategori alergi.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Flu dan Batuk')">
+            <div class="card-icon">😷</div>
+            <h3>Flu dan Batuk</h3>
+            <p>Daftar obat flu dan batuk.</p>
+          </div>
+
+          <div class="card category-card" onclick="openCategory('Vitamin')">
+            <div class="card-icon">🍊</div>
+            <h3>Vitamin</h3>
+            <p>Daftar vitamin.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- =====================================================
+     KESEHATAN
+===================================================== -->
+
+<section id="kesehatan" class="page">
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>📚 Informasi Kesehatan</h2>
+
+        <p>
+          Edukasi kesehatan sederhana untuk membantu penggunaan
+          obat dan menjaga kesehatan.
+        </p>
+
+      </div>
+
+      <div id="healthList" class="grid">
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- =====================================================
+     KONSELING
+===================================================== -->
+
+<section id="konseling" class="page">
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>🩺 Konseling Apoteker</h2>
+
+        <p>
+          Pilih apoteker untuk mengajukan pertanyaan mengenai obat
+          dan penggunaan obat.
+        </p>
+
+      </div>
+
+      <div id="pharmacistList" class="grid">
+
+      </div>
+
+      <div id="consultationContent"></div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- =====================================================
+     INFORMASI PENTING
+===================================================== -->
+
+<section id="penting" class="page">
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>⚠️ Informasi Penting tentang Antibiotik</h2>
+
+        <p>
+          Gunakan antibiotik secara tepat dan bertanggung jawab.
+        </p>
+
+      </div>
+
+      <div class="info-box">
+
+        <h3>💊 Apa itu antibiotik?</h3>
+
+        <p>
+          Antibiotik merupakan obat yang digunakan untuk mengatasi
+          infeksi tertentu yang disebabkan oleh bakteri. Antibiotik
+          tidak digunakan untuk mengobati penyakit yang disebabkan
+          oleh virus seperti sebagian besar flu dan pilek.
+        </p>
+
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-icon">🦠</div>
+          <h3>Untuk Infeksi Bakteri</h3>
+          <p>
+            Antibiotik digunakan untuk infeksi bakteri tertentu
+            sesuai dengan diagnosis dan pertimbangan tenaga kesehatan.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🚫</div>
+          <h3>Bukan untuk Flu</h3>
+          <p>
+            Antibiotik tidak digunakan untuk mengobati infeksi
+            virus seperti flu biasa.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">👨‍⚕️</div>
+          <h3>Sesuai Resep Dokter</h3>
+          <p>
+            Antibiotik harus digunakan berdasarkan resep dan
+            petunjuk dokter.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⏱️</div>
+          <h3>Ikuti Aturan Penggunaan</h3>
+          <p>
+            Gunakan sesuai dosis dan lama penggunaan yang telah
+            diresepkan.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="warning-box">
+
+        <h3>⚠️ Hal yang harus diperhatikan</h3>
+
+        <ul style="padding-left:20px; margin-top:10px;">
+
+          <li>
+            Jangan menggunakan antibiotik tanpa resep dokter.
+          </li>
+
+          <li>
+            Jangan menggunakan antibiotik sisa pengobatan sebelumnya.
+          </li>
+
+          <li>
+            Jangan memberikan antibiotik kepada orang lain.
+          </li>
+
+          <li>
+            Gunakan antibiotik sesuai dosis dan durasi yang diresepkan.
+          </li>
+
+          <li>
+            Jangan menggandakan dosis secara sembarangan apabila
+            lupa minum obat. Periksa petunjuk pada resep/kemasan
+            atau konsultasikan kepada apoteker.
+          </li>
+
+          <li>
+            Penggunaan antibiotik yang tidak tepat dapat berkontribusi
+            terhadap terjadinya resistensi antibiotik.
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div class="section-title" style="margin-top:45px;">
+
+        <h2>Contoh Antibiotik</h2>
+
+        <p>
+          Klik salah satu obat untuk melihat informasi lebih lanjut.
+        </p>
+
+      </div>
+
+      <div id="antibioticList" class="grid">
+
+      </div>
+
+      <div id="antibioticDetail"></div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- =====================================================
+     KONTAK
+===================================================== -->
+
+<section id="kontak" class="page">
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>📞 Kontak PharmaCare</h2>
+
+        <p>
+          Hubungi PharmaCare untuk mendapatkan informasi lebih lanjut.
+        </p>
+
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <h3>WhatsApp</h3>
+          <p>
+            Konsultasi dan informasi dapat dilakukan melalui
+            layanan komunikasi yang tersedia.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📧</div>
+          <h3>Email</h3>
+          <p>
+            Silakan gunakan email resmi PharmaCare untuk pertanyaan
+            dan informasi umum.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🩺</div>
+          <h3>Konsultasi Apoteker</h3>
+          <p>
+            Pertanyaan mengenai obat dapat disampaikan melalui
+            halaman Konseling Apoteker.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-    <h3>🌸 PharmaCare</h3>
+  <h3>🌸 PharmaCare</h3>
 
-    <p>
-        Your Guide to Medicine & Health Consultation
-    </p>
+  <p>
+    Your Guide to Medicine & Health Consultation
+  </p>
 
-    <p>
-        Konten website ini bersifat edukatif dan tidak menggantikan
-        pemeriksaan atau diagnosis oleh tenaga kesehatan.
-    </p>
-
-    <p>
-        Untuk kondisi yang membutuhkan pemeriksaan langsung,
-        konsultasikan dengan apoteker atau dokter.
-    </p>
-
-    <p style="margin-top:15px;">
-        © 2026 PharmaCare
-    </p>
+  <p style="margin-top:10px;">
+    © 2026 PharmaCare. Website informasi obat dan kesehatan.
+  </p>
 
 </footer>
 
 
 <script>
 
-/* =========================================================
-   DATABASE OBAT
-========================================================= */
+/* =====================================================
+   DATA OBAT
+===================================================== */
 
 const medicines = [
 
-    {
-        id:"sanmol",
-        category:"Demam",
-        brand:"Sanmol",
-        active:"Paracetamol",
-        strength:"500 mg",
-        form:"Tablet",
-        status:"Obat Bebas",
-        indication:"Membantu meredakan demam dan nyeri ringan sampai sedang.",
-        contraindication:"Hipersensitivitas terhadap paracetamol. Perhatian khusus diperlukan pada gangguan hati.",
-        sideEffect:"Mual, ruam, atau reaksi alergi dapat terjadi. Penggunaan berlebihan dapat menyebabkan kerusakan hati.",
-        dose:"Ikuti aturan pada kemasan atau petunjuk tenaga kesehatan.",
-        usage:"Ditelan dengan air. Jangan melebihi dosis yang dianjurkan.",
-        storage:"Simpan pada suhu ruang, terlindung dari kelembapan dan panas berlebih.",
-        warning:"Hindari penggunaan bersamaan dengan produk lain yang juga mengandung paracetamol tanpa memperhitungkan total dosis.",
-        interaction:"Perlu perhatian terhadap obat tertentu yang memengaruhi fungsi hati atau metabolisme obat.",
-        image:"assets/obat/sanmol.jpg"
-    },
+  {
+    id: 1,
+    brand: "Paracetamol",
+    active: "Paracetamol",
+    strength: "500 mg",
+    form: "Tablet",
+    category: "Demam",
+    class: "Analgesik-antipiretik",
+    status: "Obat Bebas",
+    indication: "Membantu menurunkan demam dan meredakan nyeri ringan sampai sedang.",
+    contraindication: "Hipersensitivitas terhadap paracetamol dan kondisi tertentu sesuai pertimbangan tenaga kesehatan.",
+    sideEffects: "Mual, ruam, atau reaksi alergi. Penggunaan berlebihan dapat menyebabkan kerusakan hati.",
+    dosing: "Gunakan sesuai aturan pada kemasan atau petunjuk tenaga kesehatan.",
+    use: "Diminum dengan air dan digunakan sesuai dosis yang dianjurkan.",
+    storage: "Simpan pada tempat kering, terlindung dari cahaya dan jauh dari jangkauan anak.",
+    warnings: "Jangan menggunakan melebihi dosis yang dianjurkan."
+  },
 
-    {
-        id:"panadol",
-        category:"Demam",
-        brand:"Panadol",
-        active:"Paracetamol",
-        strength:"500 mg",
-        form:"Kaplet",
-        status:"Obat Bebas",
-        indication:"Meredakan demam serta nyeri ringan sampai sedang.",
-        contraindication:"Hipersensitivitas terhadap kandungan produk.",
-        sideEffect:"Dapat terjadi mual, ruam, atau reaksi hipersensitivitas.",
-        dose:"Gunakan sesuai petunjuk pada kemasan.",
-        usage:"Diminum dengan air dan tidak melebihi dosis yang dianjurkan.",
-        storage:"Simpan di tempat kering pada suhu ruang.",
-        warning:"Perhatikan kandungan paracetamol dari obat lain yang digunakan bersamaan.",
-        interaction:"Dapat berinteraksi dengan beberapa obat tertentu; konsultasikan bila menggunakan obat lain secara rutin.",
-        image:"assets/obat/panadol.jpg"
-    },
+  {
+    id: 2,
+    brand: "Sanmol",
+    active: "Paracetamol",
+    strength: "500 mg",
+    form: "Tablet",
+    category: "Demam",
+    class: "Analgesik-antipiretik",
+    status: "Obat Bebas",
+    indication: "Membantu menurunkan demam dan meredakan nyeri ringan sampai sedang.",
+    contraindication: "Hipersensitivitas terhadap paracetamol.",
+    sideEffects: "Mual, ruam, dan reaksi alergi. Dosis berlebihan dapat menyebabkan kerusakan hati.",
+    dosing: "Ikuti aturan penggunaan pada kemasan atau petunjuk tenaga kesehatan.",
+    use: "Diminum dengan air.",
+    storage: "Simpan di tempat kering dan terlindung dari cahaya.",
+    warnings: "Hindari penggunaan bersamaan dengan obat lain yang juga mengandung paracetamol tanpa memperhatikan total dosis."
+  },
 
-    {
-        id:"bodrex",
-        category:"Demam",
-        brand:"Bodrex",
-        active:"Paracetamol",
-        strength:"500 mg",
-        form:"Kaplet",
-        status:"Obat Bebas",
-        indication:"Membantu meredakan sakit kepala dan demam.",
-        contraindication:"Hipersensitivitas terhadap kandungan obat.",
-        sideEffect:"Gangguan saluran cerna atau reaksi alergi dapat terjadi.",
-        dose:"Sesuai petunjuk pada kemasan.",
-        usage:"Diminum dengan air.",
-        storage:"Simpan pada suhu ruang dan tempat kering.",
-        warning:"Jangan menggunakan lebih dari dosis yang dianjurkan.",
-        interaction:"Perhatikan penggunaan bersama obat lain yang mengandung paracetamol.",
-        image:"assets/obat/bodrex.jpg"
-    },
+  {
+    id: 3,
+    brand: "Promag",
+    active: "Antasida",
+    strength: "Tablet kunyah",
+    form: "Tablet kunyah",
+    category: "Maag",
+    class: "Antasida",
+    status: "Obat Bebas",
+    indication: "Membantu meredakan gejala akibat kelebihan asam lambung seperti nyeri ulu hati.",
+    contraindication: "Hipersensitivitas terhadap komponen obat.",
+    sideEffects: "Gangguan saluran pencernaan dapat terjadi.",
+    dosing: "Gunakan sesuai aturan pada kemasan.",
+    use: "Dikunyah sesuai petunjuk penggunaan.",
+    storage: "Simpan pada tempat kering.",
+    warnings: "Jika keluhan menetap atau memburuk, konsultasikan dengan tenaga kesehatan."
+  },
 
-    {
-        id:"proris",
-        category:"Nyeri",
-        brand:"Proris",
-        active:"Ibuprofen",
-        strength:"200 mg",
-        form:"Kaplet",
-        status:"Obat Bebas Terbatas*",
-        indication:"Meredakan nyeri ringan sampai sedang dan demam sesuai indikasi.",
-        contraindication:"Riwayat alergi terhadap NSAID, ulkus aktif, dan kondisi tertentu sesuai petunjuk produk.",
-        sideEffect:"Mual, nyeri lambung, gangguan pencernaan, dan reaksi alergi.",
-        dose:"Ikuti petunjuk pada kemasan atau tenaga kesehatan.",
-        usage:"Diminum dengan air; sebaiknya setelah makan bila sesuai petunjuk produk.",
-        storage:"Simpan di tempat kering dan terlindung dari panas.",
-        warning:"Berhati-hati pada pasien dengan riwayat penyakit lambung, ginjal, atau penggunaan NSAID lain.",
-        interaction:"Dapat berinteraksi dengan antikoagulan, NSAID lain, dan beberapa obat antihipertensi.",
-        image:"assets/obat/proris.jpg"
-    },
+  {
+    id: 4,
+    brand: "Diapet",
+    active: "Ekstrak tanaman obat",
+    strength: "Kapsul",
+    form: "Kapsul",
+    category: "Diare",
+    class: "Antidiare",
+    status: "Obat Tradisional",
+    indication: "Membantu meredakan gejala diare.",
+    contraindication: "Perhatikan komposisi dan kondisi pengguna sebelum digunakan.",
+    sideEffects: "Dapat terjadi gangguan saluran pencernaan pada sebagian pengguna.",
+    dosing: "Ikuti aturan penggunaan pada kemasan.",
+    use: "Diminum dengan air.",
+    storage: "Simpan pada tempat kering dan terlindung dari cahaya.",
+    warnings: "Pada diare, perhatikan kecukupan cairan. Jika terdapat darah, demam tinggi, atau tanda dehidrasi, segera mencari pertolongan medis."
+  },
 
-    {
-        id:"promag",
-        category:"Maag",
-        brand:"Promag",
-        active:"Antasida kombinasi",
-        strength:"Sesuai sediaan",
-        form:"Tablet kunyah",
-        status:"Obat Bebas",
-        indication:"Membantu meredakan gejala yang berkaitan dengan kelebihan asam lambung seperti nyeri ulu hati.",
-        contraindication:"Hipersensitivitas terhadap kandungan produk.",
-        sideEffect:"Gangguan saluran cerna dapat terjadi.",
-        dose:"Sesuai petunjuk pada kemasan.",
-        usage:"Tablet dikunyah sesuai petunjuk sebelum ditelan.",
-        storage:"Simpan pada suhu ruang dan tempat kering.",
-        warning:"Berikan jarak dengan obat tertentu karena antasida dapat memengaruhi penyerapan beberapa obat.",
-        interaction:"Dapat mengurangi penyerapan obat tertentu bila diminum bersamaan.",
-        image:"assets/obat/promag.jpg"
-    },
+  {
+    id: 5,
+    brand: "Cetirizine",
+    active: "Cetirizine",
+    strength: "10 mg",
+    form: "Tablet",
+    category: "Alergi",
+    class: "Antihistamin",
+    status: "Obat Bebas Terbatas",
+    indication: "Membantu meredakan gejala alergi seperti bersin dan hidung berair.",
+    contraindication: "Hipersensitivitas terhadap cetirizine atau komponen terkait.",
+    sideEffects: "Mengantuk, sakit kepala, atau mulut kering.",
+    dosing: "Gunakan sesuai aturan pada kemasan atau petunjuk tenaga kesehatan.",
+    use: "Diminum dengan air.",
+    storage: "Simpan pada tempat kering.",
+    warnings: "Perhatikan kemungkinan kantuk setelah penggunaan."
+  },
 
-    {
-        id:"dulcolax",
-        category:"Sembelit",
-        brand:"Dulcolax",
-        active:"Bisacodyl",
-        strength:"5 mg",
-        form:"Tablet salut enterik",
-        status:"Obat Bebas Terbatas*",
-        indication:"Digunakan sebagai laksatif untuk membantu mengatasi konstipasi.",
-        contraindication:"Tidak digunakan pada kondisi tertentu seperti obstruksi usus atau nyeri perut akut yang belum diketahui penyebabnya.",
-        sideEffect:"Kram perut, diare, dan rasa tidak nyaman pada perut.",
-        dose:"Ikuti petunjuk pada kemasan atau tenaga kesehatan.",
-        usage:"Telan utuh; jangan dikunyah atau dihancurkan jika sesuai bentuk sediaannya.",
-        storage:"Simpan pada suhu ruang dan tempat kering.",
-        warning:"Tidak dianjurkan digunakan terus-menerus tanpa evaluasi penyebab konstipasi.",
-        interaction:"Penggunaan bersama obat tertentu perlu diperhatikan; konsultasikan kepada apoteker.",
-        image:"assets/obat/dulcolax.jpg"
-    },
+  {
+    id: 6,
+    brand: "OBH Combi",
+    active: "Kombinasi bahan aktif sesuai varian",
+    strength: "Sediaan sirup",
+    form: "Sirup",
+    category: "Flu dan Batuk",
+    class: "Obat batuk dan flu",
+    status: "Sesuai varian",
+    indication: "Membantu meredakan gejala flu dan batuk sesuai jenis produknya.",
+    contraindication: "Periksa komposisi dan kontraindikasi pada kemasan.",
+    sideEffects: "Dapat terjadi kantuk atau gangguan pencernaan tergantung kandungan.",
+    dosing: "Gunakan sesuai aturan pada kemasan.",
+    use: "Gunakan sendok takar dan jangan melebihi dosis.",
+    storage: "Simpan sesuai petunjuk pada kemasan.",
+    warnings: "Periksa kandungan sebelum menggunakan bersama obat flu atau batuk lainnya."
+  },
 
-    {
-        id:"diapet",
-        category:"Diare",
-        brand:"Diapet",
-        active:"Ekstrak bahan herbal sesuai formulasi produk",
-        strength:"Sesuai sediaan",
-        form:"Kapsul",
-        status:"Obat Bebas",
-        indication:"Digunakan sesuai informasi produk untuk membantu meredakan gejala diare.",
-        contraindication:"Hipersensitivitas terhadap kandungan produk.",
-        sideEffect:"Keluhan saluran cerna atau reaksi alergi dapat terjadi.",
-        dose:"Sesuai aturan pada kemasan.",
-        usage:"Diminum dengan air sesuai aturan penggunaan.",
-        storage:"Simpan pada tempat kering dan terlindung dari panas.",
-        warning:"Diare dengan darah, demam tinggi, dehidrasi berat, atau berlangsung lama memerlukan pemeriksaan tenaga kesehatan.",
-        interaction:"Periksa penggunaan obat lain kepada apoteker.",
-        image:"assets/obat/diapet.jpg"
-    },
+  {
+    id: 7,
+    brand: "Dulcolax",
+    active: "Bisacodyl",
+    strength: "5 mg",
+    form: "Tablet salut enterik",
+    category: "Sembelit",
+    class: "Laksatif stimulan",
+    status: "Obat Bebas Terbatas",
+    indication: "Membantu mengatasi sembelit.",
+    contraindication: "Tidak digunakan pada kondisi tertentu seperti sumbatan usus.",
+    sideEffects: "Kram perut dan diare dapat terjadi.",
+    dosing: "Gunakan sesuai aturan pada kemasan.",
+    use: "Telan sesuai petunjuk dan jangan mengunyah tablet salut enterik.",
+    storage: "Simpan pada tempat kering.",
+    warnings: "Penggunaan jangka panjang tanpa pengawasan tidak dianjurkan."
+  },
 
-    {
-        id:"cetirizine",
-        category:"Alergi",
-        brand:"Cetirizine",
-        active:"Cetirizine",
-        strength:"10 mg",
-        form:"Tablet",
-        status:"Obat Keras",
-        indication:"Meredakan gejala alergi seperti bersin, hidung berair, dan gatal sesuai indikasi.",
-        contraindication:"Hipersensitivitas terhadap cetirizine atau komponen terkait.",
-        sideEffect:"Mengantuk, lelah, sakit kepala, atau mulut kering dapat terjadi.",
-        dose:"Sesuai petunjuk dokter atau apoteker.",
-        usage:"Diminum dengan air.",
-        storage:"Simpan pada suhu ruang dan tempat kering.",
-        warning:"Dapat menyebabkan kantuk pada sebagian orang; berhati-hati saat mengemudi.",
-        interaction:"Informasikan kepada tenaga kesehatan jika menggunakan obat yang menyebabkan kantuk.",
-        image:"assets/obat/cetirizine.jpg"
-    },
-
-    {
-        id:"woods",
-        category:"Flu dan Batuk",
-        brand:"Woods",
-        active:"Kandungan sesuai varian produk",
-        strength:"Sesuai varian",
-        form:"Sirup",
-        status:"Periksa status pada kemasan",
-        indication:"Membantu meredakan gejala batuk sesuai jenis dan formulasi produk.",
-        contraindication:"Tergantung kandungan dan kondisi pasien.",
-        sideEffect:"Dapat menyebabkan mual, kantuk, atau keluhan lain tergantung kandungan.",
-        dose:"Gunakan sesuai etiket dan varian produk.",
-        usage:"Gunakan sendok takar sesuai dosis.",
-        storage:"Simpan sesuai petunjuk pada kemasan.",
-        warning:"Jangan memilih obat batuk hanya berdasarkan merek; periksa kandungan dan jenis batuk.",
-        interaction:"Periksa obat lain yang sedang digunakan untuk menghindari kandungan yang tumpang tindih.",
-        image:"assets/obat/woods.jpg"
-    },
-
-    {
-        id:"enervon-c",
-        category:"Vitamin",
-        brand:"Enervon-C",
-        active:"Vitamin dan mineral sesuai formulasi produk",
-        strength:"Sesuai formulasi",
-        form:"Tablet",
-        status:"Periksa status pada kemasan",
-        indication:"Membantu memenuhi kebutuhan vitamin dan mineral sesuai kondisi.",
-        contraindication:"Hipersensitivitas terhadap kandungan produk.",
-        sideEffect:"Keluhan saluran cerna dapat terjadi pada sebagian pengguna.",
-        dose:"Sesuai petunjuk pada kemasan.",
-        usage:"Diminum sesuai petunjuk penggunaan.",
-        storage:"Simpan pada tempat kering dan terlindung dari panas.",
-        warning:"Suplemen tidak menggantikan pola makan seimbang.",
-        interaction:"Informasikan penggunaan suplemen kepada tenaga kesehatan bila mengonsumsi obat rutin.",
-        image:"assets/obat/enervon-c.jpg"
-    }
+  {
+    id: 8,
+    brand: "Enervon-C",
+    active: "Vitamin dan mineral",
+    strength: "Sesuai komposisi produk",
+    form: "Tablet",
+    category: "Vitamin",
+    class: "Multivitamin",
+    status: "Suplemen",
+    indication: "Membantu memenuhi kebutuhan vitamin dan mineral.",
+    contraindication: "Perhatikan komposisi jika memiliki alergi terhadap bahan tertentu.",
+    sideEffects: "Gangguan pencernaan dapat terjadi pada sebagian pengguna.",
+    dosing: "Ikuti aturan penggunaan pada kemasan.",
+    use: "Diminum dengan air.",
+    storage: "Simpan pada tempat kering dan terlindung dari cahaya.",
+    warnings: "Suplemen tidak menggantikan pola makan bergizi seimbang."
+  }
 
 ];
 
 
-/* =========================================================
+/* =====================================================
+   DATA INFORMASI KESEHATAN
+===================================================== */
+
+const healthArticles = [
+
+  {
+    id: 1,
+    icon: "🥗",
+    title: "Pola Hidup Sehat",
+    text: "Pola hidup sehat dapat dilakukan melalui konsumsi makanan bergizi seimbang, aktivitas fisik, tidur cukup, menjaga kebersihan dan menghindari kebiasaan yang berisiko bagi kesehatan."
+  },
+
+  {
+    id: 2,
+    icon: "💊",
+    title: "Penggunaan Obat yang Tepat",
+    text: "Gunakan obat sesuai indikasi, dosis, aturan pakai dan lama penggunaan. Perhatikan informasi pada kemasan dan konsultasikan kepada apoteker jika terdapat hal yang belum dipahami."
+  },
+
+  {
+    id: 3,
+    icon: "📦",
+    title: "Penyimpanan Obat",
+    text: "Obat perlu disimpan sesuai petunjuk pada kemasan. Hindarkan obat dari panas, kelembapan dan cahaya berlebihan serta jauhkan dari jangkauan anak-anak."
+  },
+
+  {
+    id: 4,
+    icon: "🏷️",
+    title: "Cara Membaca Label Obat",
+    text: "Label obat dapat memberikan informasi mengenai nama obat, zat aktif, kekuatan, aturan penggunaan, peringatan, tanggal kedaluwarsa dan cara penyimpanan."
+  },
+
+  {
+    id: 5,
+    icon: "🏠",
+    title: "Pengelolaan Obat di Rumah",
+    text: "Simpan obat secara teratur dan periksa tanggal kedaluwarsa secara berkala. Pisahkan obat yang sudah rusak atau kedaluwarsa dan lakukan pembuangan sesuai ketentuan."
+  },
+
+  {
+    id: 6,
+    icon: "📚",
+    title: "Golongan Obat",
+    text: "Obat memiliki berbagai golongan berdasarkan ketentuan dan penggunaannya. Kenali informasi pada kemasan sebelum menggunakan obat."
+  },
+
+  {
+    id: 7,
+    icon: "💧",
+    title: "Bentuk Sediaan Obat",
+    text: "Obat tersedia dalam berbagai bentuk sediaan seperti tablet, kapsul, sirup, salep, krim, tetes dan bentuk lainnya. Setiap sediaan memiliki cara penggunaan yang berbeda."
+  }
+
+];
+
+
+/* =====================================================
    DATA APOTEKER
-========================================================= */
+===================================================== */
 
-const counselors = [
+const pharmacists = [
 
-    {
-        name:"apt. Arlamadha Tri Wangsa, M.Farm",
-        specialty:"Spesialis Farmasi Komunitas",
-        experience:"7 tahun",
-        status:"Online"
-    },
+  {
+    name: "apt. Arlamadha Tri Wangsa, M.Farm",
+    specialization: "Spesialis Farmasi Komunitas",
+    experience: "7 tahun",
+    status: "Online"
+  },
 
-    {
-        name:"apt. Chandra Gardipta, M.Farm",
-        specialty:"Spesialis Farmasi Klinik",
-        experience:"10 tahun",
-        status:"Online"
-    },
+  {
+    name: "apt. Chandra Gardipta, M.Farm",
+    specialization: "Spesialis Farmasi Klinik",
+    experience: "10 tahun",
+    status: "Online"
+  },
 
-    {
-        name:"apt. Nastikah Syafitri, S.Farm",
-        specialty:"Apoteker",
-        experience:"4 tahun",
-        status:"Online"
-    }
+  {
+    name: "apt. Nastikah Syafitri, S.Farm",
+    specialization: "Apoteker",
+    experience: "4 tahun",
+    status: "Online"
+  }
 
 ];
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =====================================================
+   DATA ANTIBIOTIK
+===================================================== */
 
-function showPage(page){
+const antibiotics = [
 
-    document.querySelectorAll(".page").forEach(function(p){
-        p.classList.remove("active");
-    });
+  {
+    id: 1,
+    brand: "Amoxicillin",
+    active: "Amoxicillin",
+    class: "Antibiotik penisilin",
+    form: "Kapsul",
+    indication: "Digunakan untuk infeksi bakteri tertentu berdasarkan diagnosis dan resep dokter.",
+    use: "Gunakan sesuai dosis dan durasi yang diresepkan dokter.",
+    sideEffects: "Mual, diare, ruam atau reaksi alergi.",
+    warnings: "Tidak digunakan untuk flu atau infeksi virus. Jangan menggunakan sisa antibiotik."
+  },
 
-    document.getElementById(page).classList.add("active");
+  {
+    id: 2,
+    brand: "Cefixime",
+    active: "Cefixime",
+    class: "Antibiotik sefalosporin",
+    form: "Kapsul atau sirup",
+    indication: "Digunakan untuk infeksi bakteri tertentu sesuai diagnosis dokter.",
+    use: "Gunakan sesuai resep dan petunjuk tenaga kesehatan.",
+    sideEffects: "Diare, mual, sakit perut atau reaksi alergi.",
+    warnings: "Gunakan berdasarkan resep dokter dan jangan diberikan kepada orang lain."
+  },
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+  {
+    id: 3,
+    brand: "Azithromycin",
+    active: "Azithromycin",
+    class: "Antibiotik makrolida",
+    form: "Tablet atau kapsul",
+    indication: "Digunakan untuk infeksi bakteri tertentu berdasarkan pertimbangan dokter.",
+    use: "Gunakan sesuai resep dokter.",
+    sideEffects: "Mual, diare, sakit perut dan reaksi alergi.",
+    warnings: "Tidak digunakan untuk mengatasi flu biasa atau infeksi virus."
+  }
+
+];
+
+
+/* =====================================================
+   PINDAH HALAMAN
+===================================================== */
+
+function showPage(pageId) {
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  const page = document.getElementById(pageId);
+
+  if (page) {
+    page.classList.add("active");
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 
-/* =========================================================
+/* =====================================================
    KATEGORI OBAT
-========================================================= */
+===================================================== */
 
-function openCategory(category){
+function openCategory(category) {
 
-    showPage("obat");
+  showPage("obat");
 
-    const list = medicines.filter(function(medicine){
-        return medicine.category === category;
-    });
+  const result = medicines.filter(
+    medicine => medicine.category === category
+  );
 
-    const categoryList = document.getElementById("categoryList");
-    const medicineList = document.getElementById("medicineList");
-    const detail = document.getElementById("medicineDetail");
+  const container = document.getElementById("categoryContent");
 
-    categoryList.style.display="none";
-    detail.style.display="none";
+  container.innerHTML = `
 
-    medicineList.style.display="block";
+    <button class="back-btn" onclick="showPage('obat')">
+      ← Kembali ke Kategori
+    </button>
 
-    let html=`
+    <div class="section-title">
 
-        <button class="btn btn-light back"
-                onclick="backToCategories()">
-            ← Kembali ke Kategori
+      <h2>${category}</h2>
+
+      <p>
+        Daftar obat dalam kategori ${category}.
+      </p>
+
+    </div>
+
+    <div class="grid">
+
+      ${result.map(createMedicineCard).join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   CARD OBAT
+===================================================== */
+
+function createMedicineCard(medicine) {
+
+  return `
+
+    <div class="card medicine-card">
+
+      <img
+        class="medicine-img"
+        src="assets/obat/${medicine.brand.toLowerCase().replaceAll(" ", "-")}.jpg"
+        alt="${medicine.brand}"
+        onerror="this.style.display='none'"
+      >
+
+      <div class="medicine-content">
+
+        <h3>${medicine.brand}</h3>
+
+        <p class="active">
+          ${medicine.active} - ${medicine.strength}
+        </p>
+
+        <p>
+          <strong>Bentuk:</strong> ${medicine.form}
+        </p>
+
+        <p>
+          <strong>Golongan:</strong> ${medicine.status}
+        </p>
+
+        <br>
+
+        <button class="btn" onclick="openMedicine(${medicine.id})">
+          Lihat Detail
         </button>
 
-        <h2 class="section-title">
-            ${category}
-        </h2>
+      </div>
 
-        <div class="medicine-grid">
-    `;
+    </div>
 
-    if(list.length===0){
-
-        html += `
-            <div class="card">
-                <h3>Belum ada data</h3>
-                <p>
-                    Data obat pada kategori ini sedang disiapkan.
-                </p>
-            </div>
-        `;
-
-    }else{
-
-        list.forEach(function(medicine){
-
-            html += createMedicineCard(medicine);
-
-        });
-
-    }
-
-    html += `</div>`;
-
-    medicineList.innerHTML=html;
-}
-
-
-function createMedicineCard(medicine){
-
-    return `
-
-        <div class="medicine-card"
-             onclick="openMedicine('${medicine.id}')">
-
-            <div class="medicine-image">
-
-                <img
-                    src="${medicine.image}"
-                    alt="${medicine.brand}"
-                    onerror="this.style.display='none';
-                    this.parentElement.innerHTML=
-                    '<div class=\\'image-placeholder\\'>
-                    <span>💊</span>Foto ${medicine.brand}</div>'">
-
-            </div>
-
-            <div class="medicine-content">
-
-                <h3>${medicine.brand}</h3>
-
-                <p>
-                    <strong>Zat aktif:</strong>
-                    ${medicine.active}
-                </p>
-
-                <p>
-                    <strong>Kekuatan:</strong>
-                    ${medicine.strength}
-                </p>
-
-                <span class="status">
-                    ${medicine.status}
-                </span>
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-function backToCategories(){
-
-    document.getElementById("categoryList").style.display="block";
-    document.getElementById("medicineList").style.display="none";
-    document.getElementById("medicineDetail").style.display="none";
+  `;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    DETAIL OBAT
-========================================================= */
+===================================================== */
 
-function openMedicine(id){
+function openMedicine(id) {
 
-    const medicine=medicines.find(function(m){
-        return m.id===id;
-    });
+  const medicine = medicines.find(item => item.id === id);
 
-    if(!medicine)return;
+  if (!medicine) return;
 
-    const list=document.getElementById("medicineList");
-    const detail=document.getElementById("medicineDetail");
+  showPage("obat");
 
-    list.style.display="none";
-    document.getElementById("categoryList").style.display="none";
+  const container = document.getElementById("categoryContent");
 
-    detail.style.display="block";
+  container.innerHTML = `
 
-    detail.innerHTML=`
+    <button class="back-btn" onclick="openCategory('${medicine.category}')">
+      ← Kembali ke ${medicine.category}
+    </button>
 
-        <button class="btn btn-light back"
-                onclick="openCategory('${medicine.category}')">
-            ← Kembali ke ${medicine.category}
-        </button>
+    <div class="medicine-detail">
 
-        <div class="detail-card">
+      <img
+        class="detail-image"
+        src="assets/obat/${medicine.brand.toLowerCase().replaceAll(" ", "-")}.jpg"
+        alt="${medicine.brand}"
+        onerror="this.style.display='none'"
+      >
 
-            <div class="detail-top">
+      <div class="section-title">
 
-                <div class="detail-image">
+        <h2>${medicine.brand}</h2>
 
-                    <img
-                        src="${medicine.image}"
-                        alt="${medicine.brand}"
-                        onerror="this.style.display='none';
-                        this.parentElement.innerHTML=
-                        '<div class=\\'image-placeholder\\'>
-                        <span>💊</span>
-                        Foto ${medicine.brand}
-                        </div>'">
+        <p>${medicine.active}</p>
 
-                </div>
+      </div>
+
+      <div class="detail-list">
+
+        <div class="detail-item">
+          <strong>Zat Aktif:</strong>
+          ${medicine.active}
+        </div>
+
+        <div class="detail-item">
+          <strong>Kekuatan:</strong>
+          ${medicine.strength}
+        </div>
+
+        <div class="detail-item">
+          <strong>Bentuk Sediaan:</strong>
+          ${medicine.form}
+        </div>
+
+        <div class="detail-item">
+          <strong>Golongan/Kelas:</strong>
+          ${medicine.class}
+        </div>
+
+        <div class="detail-item">
+          <strong>Status:</strong>
+          ${medicine.status}
+        </div>
+
+        <div class="detail-item">
+          <strong>Indikasi:</strong>
+          ${medicine.indication}
+        </div>
+
+        <div class="detail-item">
+          <strong>Kontraindikasi:</strong>
+          ${medicine.contraindication}
+        </div>
+
+        <div class="detail-item">
+          <strong>Efek Samping:</strong>
+          ${medicine.sideEffects}
+        </div>
+
+        <div class="detail-item">
+          <strong>Dosis:</strong>
+          ${medicine.dosing}
+        </div>
+
+        <div class="detail-item">
+          <strong>Cara Penggunaan:</strong>
+          ${medicine.use}
+        </div>
+
+        <div class="detail-item">
+          <strong>Penyimpanan:</strong>
+          ${medicine.storage}
+        </div>
+
+        <div class="detail-item">
+          <strong>Peringatan:</strong>
+          ${medicine.warnings}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
 
 
-                <div>
+/* =====================================================
+   PENCARIAN OBAT
+===================================================== */
 
-                    <h2 class="detail-title">
-                        ${medicine.brand}
-                    </h2>
+function searchMedicine() {
 
-                    <p style="color:var(--muted);">
-                        ${medicine.active}
-                    </p>
+  const keyword =
+    document.getElementById("searchInput").value
+    .trim()
+    .toLowerCase();
 
-                    <span class="status">
-                        ${medicine.status}
-                    </span>
+  const resultBox =
+    document.getElementById("searchResult");
 
-                    <div class="info-list">
+  if (!keyword) {
 
-                        <div class="info-row">
-                            <strong>Zat Aktif:</strong>
-                            ${medicine.active}
-                        </div>
+    resultBox.innerHTML = `
+      <div class="info-box">
+        Silakan masukkan nama obat, zat aktif, atau kategori.
+      </div>
+    `;
 
-                        <div class="info-row">
-                            <strong>Kekuatan:</strong>
-                            ${medicine.strength}
-                        </div>
+    return;
+  }
 
-                        <div class="info-row">
-                            <strong>Bentuk Sediaan:</strong>
-                            ${medicine.form}
-                        </div>
+  const result = medicines.filter(medicine =>
 
-                        <div class="info-row">
-                            <strong>Golongan/Status:</strong>
-                            ${medicine.status}
-                        </div>
+    medicine.brand.toLowerCase().includes(keyword) ||
 
-                        <div class="info-row">
-                            <strong>Indikasi:</strong>
-                            ${medicine.indication}
-                        </div>
+    medicine.active.toLowerCase().includes(keyword) ||
 
-                        <div class="info-row">
-                            <strong>Kontraindikasi:</strong>
-                            ${medicine.contraindication}
-                        </div>
+    medicine.category.toLowerCase().includes(keyword)
 
-                        <div class="info-row">
-                            <strong>Efek Samping:</strong>
-                            ${medicine.sideEffect}
-                        </div>
+  );
 
-                        <div class="info-row">
-                            <strong>Aturan Pakai:</strong>
-                            ${medicine.dose}
-                        </div>
+  if (result.length === 0) {
 
-                        <div class="info-row">
-                            <strong>Cara Penggunaan:</strong>
-                            ${medicine.usage}
-                        </div>
+    resultBox.innerHTML = `
+      <div class="warning-box">
+        Obat belum ditemukan. Silakan periksa kembali nama obat
+        atau konsultasikan dengan apoteker.
+      </div>
+    `;
 
-                        <div class="info-row">
-                            <strong>Cara Penyimpanan:</strong>
-                            ${medicine.storage}
-                        </div>
+    return;
+  }
 
-                        <div class="info-row">
-                            <strong>Peringatan/Perhatian:</strong>
-                            ${medicine.warning}
-                        </div>
+  resultBox.innerHTML = `
 
-                        <div class="info-row">
-                            <strong>Interaksi Obat:</strong>
-                            ${medicine.interaction}
-                        </div>
+    <div style="
+      background:white;
+      padding:20px;
+      border-radius:18px;
+      margin-top:20px;
+      text-align:left;
+    ">
 
-                    </div>
+      <h3 style="color:#914866;">
+        Hasil pencarian
+      </h3>
 
-                </div>
+      <div style="margin-top:15px;">
 
-            </div>
+        ${result.map(medicine => `
 
-            <div class="warning">
-                ⚠️ Informasi pada halaman ini bersifat edukatif.
-                Selalu periksa kemasan/etiket dan konsultasikan dengan
-                apoteker atau dokter apabila memiliki kondisi khusus
-                atau menggunakan obat lain.
-            </div>
+          <div style="
+            padding:12px 0;
+            border-bottom:1px solid #f1dce5;
+          ">
+
+            <strong>${medicine.brand}</strong>
 
             <br>
 
-            <button class="btn"
-                    onclick="showPage('konseling')">
-                👩‍⚕️ Konsultasikan dengan Apoteker
-            </button>
-
-        </div>
-
-    `;
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-
-/* =========================================================
-   SEARCH OBAT
-========================================================= */
-
-function searchMedicine(){
-
-    const query=document
-        .getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const result=document.getElementById("searchResult");
-
-    if(!query){
-
-        result.innerHTML=`
-            <p style="color:#b85c7b;">
-                Silakan masukkan nama obat, zat aktif, atau kategori.
-            </p>
-        `;
-
-        return;
-    }
-
-    const medicine=medicines.find(function(m){
-
-        return (
-            m.brand.toLowerCase().includes(query) ||
-            m.active.toLowerCase().includes(query) ||
-            m.category.toLowerCase().includes(query)
-        );
-
-    });
-
-    if(medicine){
-
-        result.innerHTML=`
-            <button class="btn"
-                    onclick="openMedicine('${medicine.id}')">
-                💊 ${medicine.brand} — Lihat Detail
-            </button>
-        `;
-
-        showPage("obat");
-
-        setTimeout(function(){
-            openMedicine(medicine.id);
-        },100);
-
-    }else{
-
-        showPage("home");
-
-        result.innerHTML=`
-            <div style="
-                background:#fff0f4;
-                padding:13px;
-                border-radius:12px;
-                color:#963f60;">
-                Obat belum ditemukan. Silakan periksa kembali
-                nama obat atau konsultasikan dengan apoteker.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   INFORMASI KESEHATAN
-========================================================= */
-
-const healthArticles={
-
-    pola:{
-        title:"Pola Hidup Sehat",
-        content:`
-            <p>
-                Pola hidup sehat merupakan kebiasaan yang dilakukan
-                secara konsisten untuk membantu menjaga kesehatan tubuh.
-            </p>
-
-            <h3>Hal yang dapat dilakukan</h3>
-
-            <ul>
-                <li>Mengonsumsi makanan dengan gizi seimbang.</li>
-                <li>Melakukan aktivitas fisik secara rutin.</li>
-                <li>Mencukupi kebutuhan tidur.</li>
-                <li>Menjaga kebersihan diri dan lingkungan.</li>
-                <li>Menghindari kebiasaan yang berisiko bagi kesehatan.</li>
-            </ul>
-        `
-    },
-
-    konsumsi:{
-        title:"Cara Konsumsi Obat yang Benar",
-        content:`
-            <p>
-                Gunakan obat sesuai etiket, resep, atau petunjuk tenaga
-                kesehatan.
-            </p>
-
-            <ul>
-                <li>Perhatikan nama dan dosis obat.</li>
-                <li>Perhatikan waktu penggunaan.</li>
-                <li>Gunakan alat ukur yang sesuai untuk obat cair.</li>
-                <li>Jangan menggandakan dosis tanpa petunjuk.</li>
-                <li>Tanyakan kepada apoteker jika terdapat keraguan.</li>
-            </ul>
-        `
-    },
-
-    simpan:{
-        title:"Cara Menyimpan Obat",
-        content:`
-            <p>
-                Penyimpanan obat yang tepat membantu menjaga mutu obat.
-            </p>
-
-            <ul>
-                <li>Simpan sesuai petunjuk pada kemasan.</li>
-                <li>Hindari tempat yang panas dan lembap jika tidak sesuai.</li>
-                <li>Simpan obat jauh dari jangkauan anak-anak.</li>
-                <li>Perhatikan tanggal kedaluwarsa.</li>
-                <li>Jangan menggunakan obat yang berubah warna, bau, atau bentuk secara tidak wajar.</li>
-            </ul>
-        `
-    },
-
-    etiket:{
-        title:"Cara Membaca Etiket Obat",
-        content:`
-            <p>
-                Etiket memberikan informasi penting mengenai obat yang
-                akan digunakan.
-            </p>
-
-            <ul>
-                <li>Nama pasien bila tercantum.</li>
-                <li>Nama obat.</li>
-                <li>Jumlah atau kekuatan obat.</li>
-                <li>Aturan pakai.</li>
-                <li>Waktu penggunaan.</li>
-                <li>Petunjuk khusus penyimpanan atau penggunaan.</li>
-            </ul>
-        `
-    },
-
-    rumah:{
-        title:"Pengelolaan Obat di Rumah",
-        content:`
-            <p>
-                Obat di rumah perlu diperiksa secara berkala agar obat
-                yang tersedia tetap aman digunakan.
-            </p>
-
-            <ul>
-                <li>Periksa tanggal kedaluwarsa.</li>
-                <li>Pisahkan obat yang sudah tidak layak digunakan.</li>
-                <li>Simpan dalam kemasan aslinya jika memungkinkan.</li>
-                <li>Jangan mencampurkan obat tanpa identitas.</li>
-                <li>Jauhkan dari anak-anak.</li>
-            </ul>
-        `
-    },
-
-    golongan:{
-        title:"Mengenal Golongan Obat",
-        content:`
-            <p>
-                Obat memiliki status atau golongan tertentu yang berkaitan
-                dengan cara memperoleh dan penggunaannya.
-            </p>
-
-            <h3>Contoh</h3>
-
-            <ul>
-                <li>Obat bebas.</li>
-                <li>Obat bebas terbatas.</li>
-                <li>Obat keras.</li>
-                <li>Obat narkotika dan psikotropika sesuai ketentuan.</li>
-            </ul>
-
-            <p>
-                Status obat harus dilihat berdasarkan ketentuan dan
-                informasi resmi produk, bukan hanya berdasarkan nama merek.
-            </p>
-        `
-    },
-
-    sediaan:{
-        title:"Bentuk Sediaan Obat",
-        content:`
-            <p>
-                Obat tersedia dalam berbagai bentuk sediaan untuk
-                menyesuaikan kebutuhan terapi dan cara penggunaan.
-            </p>
-
-            <ul>
-                <li>Tablet</li>
-                <li>Kapsul</li>
-                <li>Sirup</li>
-                <li>Suspensi</li>
-                <li>Salep</li>
-                <li>Krim</li>
-                <li>Tetes mata</li>
-                <li>Tetes telinga</li>
-                <li>Injeksi</li>
-            </ul>
-        `
-    }
-
-};
-
-
-function openHealth(id){
-
-    const article=healthArticles[id];
-
-    document.getElementById("healthList").style.display="none";
-
-    const detail=document.getElementById("healthDetail");
-
-    detail.style.display="block";
-
-    detail.innerHTML=`
-
-        <button class="btn btn-light back"
-                onclick="backHealth()">
-            ← Kembali
-        </button>
-
-        <div class="article">
-
-            <h2 style="color:var(--pink-deep);">
-                ${article.title}
-            </h2>
-
-            <br>
-
-            ${article.content}
-
-        </div>
-
-    `;
-
-}
-
-
-function backHealth(){
-
-    document.getElementById("healthList").style.display="grid";
-    document.getElementById("healthDetail").style.display="none";
-
-}
-
-
-/* =========================================================
-   KONSELING APOTEKER
-========================================================= */
-
-function openCounselor(index){
-
-    const person=counselors[index];
-
-    const detail=document.getElementById("counselorDetail");
-
-    detail.style.display="block";
-
-    detail.innerHTML=`
-
-        <button class="btn btn-light back"
-                onclick="document.getElementById('counselorDetail').style.display='none'">
-            ← Kembali ke Profil
-        </button>
-
-        <div class="form-card">
-
-            <div style="text-align:center;font-size:50px;">
-                👩‍⚕️
-            </div>
-
-            <h2 style="text-align:center;color:var(--pink-deep);">
-                ${person.name}
-            </h2>
-
-            <p style="text-align:center;">
-                ${person.specialty}
-            </p>
-
-            <p style="text-align:center;">
-                Pengalaman ${person.experience}
-            </p>
-
-            <p style="text-align:center;">
-                <span class="online">
-                    ● ${person.status}
-                </span>
-            </p>
-
-            <br>
-
-            <div class="form-group">
-
-                <label>Nama Pengguna</label>
-
-                <input
-                    type="text"
-                    id="questionName"
-                    placeholder="Masukkan nama Anda">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Pertanyaan</label>
-
-                <textarea
-                    id="questionText"
-                    placeholder="Tuliskan pertanyaan Anda mengenai obat atau kesehatan..."></textarea>
-
-            </div>
-
-            <button
-                class="btn"
-                style="width:100%;"
-                onclick="sendQuestion('${person.name}')">
-                Kirim Pertanyaan
-            </button>
-
-            <div id="questionMessage"
-                 style="text-align:center;margin-top:14px;">
-            </div>
-
-        </div>
-    `;
-
-    detail.scrollIntoView({
-        behavior:"smooth"
-    });
-
-}
-
-
-function sendQuestion(apoteker){
-
-    const name=document.getElementById("questionName").value.trim();
-    const question=document.getElementById("questionText").value.trim();
-    const message=document.getElementById("questionMessage");
-
-    if(!name || !question){
-
-        message.innerHTML=`
-            <span style="color:#b85c7b;">
-                Nama dan pertanyaan harus diisi.
-            </span>
-        `;
-
-        return;
-    }
-
-    message.innerHTML=`
-        <div style="
-            background:#eaf8f0;
-            color:#277452;
-            padding:12px;
-            border-radius:12px;">
-
-            Pertanyaan Anda telah disiapkan untuk
-            <strong>${apoteker}</strong>.
+            <small>
+              ${medicine.active} • ${medicine.category}
+            </small>
 
             <br><br>
 
-            Pada versi website statis ini, data belum dikirim
-            ke server/database. Untuk konsultasi nyata,
-            hubungkan formulir ini dengan sistem backend atau
-            layanan formulir.
-        </div>
-    `;
-
-}
-
-
-/* =========================================================
-   ANTIBIOTIK
-========================================================= */
-
-const antibiotics={
-
-    amoxicillin:{
-        brand:"Amoxicillin",
-        active:"Amoxicillin",
-        class:"Antibiotik beta-laktam — penisilin",
-        form:"Kapsul / tablet / suspensi, tergantung produk",
-        indication:"Digunakan untuk infeksi bakteri tertentu yang sensitif terhadap amoxicillin sesuai diagnosis dokter.",
-        dose:"Mengikuti dosis dan durasi yang diresepkan dokter.",
-        side:"Mual, diare, ruam, dan reaksi alergi dapat terjadi.",
-        warning:"Hentikan penggunaan dan segera cari pertolongan medis bila muncul tanda reaksi alergi berat.",
-        usage:"Gunakan tepat sesuai resep. Jangan membagikan obat kepada orang lain dan jangan menggunakan sisa antibiotik."
-    },
-
-    azithromycin:{
-        brand:"Azithromycin",
-        active:"Azithromycin",
-        class:"Antibiotik makrolida",
-        form:"Tablet / kapsul / suspensi, tergantung produk",
-        indication:"Digunakan untuk infeksi bakteri tertentu sesuai diagnosis dan pertimbangan dokter.",
-        dose:"Mengikuti dosis dan durasi yang diresepkan dokter.",
-        side:"Mual, diare, nyeri perut, dan gangguan saluran cerna dapat terjadi.",
-        warning:"Informasikan kepada dokter/apoteker mengenai obat lain dan riwayat penyakit yang dimiliki.",
-        usage:"Gunakan sesuai resep. Jangan menggandakan dosis jika lupa tanpa mengikuti petunjuk tenaga kesehatan."
-    }
-
-};
-
-
-function openAntibiotic(id){
-
-    const a=antibiotics[id];
-
-    const detail=document.getElementById("antibioticDetail");
-
-    detail.style.display="block";
-
-    detail.innerHTML=`
-
-        <button class="btn btn-light back"
-                onclick="document.getElementById('antibioticDetail').style.display='none'">
-            ← Kembali
-        </button>
-
-        <div class="detail-card">
-
-            <h2 class="detail-title">
-                ${a.brand}
-            </h2>
-
-            <span class="status">
-                Obat Keras — Penggunaan berdasarkan resep dokter
-            </span>
-
-            <div class="info-list">
-
-                <div class="info-row">
-                    <strong>Zat Aktif:</strong>
-                    ${a.active}
-                </div>
-
-                <div class="info-row">
-                    <strong>Golongan Antibiotik:</strong>
-                    ${a.class}
-                </div>
-
-                <div class="info-row">
-                    <strong>Bentuk Sediaan:</strong>
-                    ${a.form}
-                </div>
-
-                <div class="info-row">
-                    <strong>Indikasi:</strong>
-                    ${a.indication}
-                </div>
-
-                <div class="info-row">
-                    <strong>Aturan Penggunaan:</strong>
-                    ${a.dose}
-                </div>
-
-                <div class="info-row">
-                    <strong>Efek Samping:</strong>
-                    ${a.side}
-                </div>
-
-                <div class="info-row">
-                    <strong>Peringatan:</strong>
-                    ${a.warning}
-                </div>
-
-                <div class="info-row">
-                    <strong>Penggunaan yang Benar:</strong>
-                    ${a.usage}
-                </div>
-
-            </div>
-
-            <div class="warning">
-
-                ⚠️ Antibiotik tidak digunakan untuk mengobati
-                flu atau penyakit akibat virus.
-
-                <br><br>
-
-                Gunakan antibiotik sesuai resep dokter dan
-                selesaikan terapi sesuai durasi yang diresepkan.
-                Jangan menggunakan sisa antibiotik dan jangan
-                memberikannya kepada orang lain.
-
-            </div>
-
-            <br>
-
-            <button class="btn"
-                    onclick="showPage('konseling')">
-                👩‍⚕️ Konsultasikan dengan Apoteker
+            <button
+              class="btn"
+              onclick="openMedicine(${medicine.id})"
+            >
+              Lihat Detail
             </button>
 
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   INFORMASI KESEHATAN
+===================================================== */
+
+function loadHealthArticles() {
+
+  const container =
+    document.getElementById("healthList");
+
+  container.innerHTML = healthArticles.map(article => `
+
+    <div class="card">
+
+      <div class="card-icon">
+        ${article.icon}
+      </div>
+
+      <h3>${article.title}</h3>
+
+      <p>
+        ${article.text}
+      </p>
+
+      <br>
+
+      <button
+        class="btn"
+        onclick="openHealth(${article.id})"
+      >
+        Baca Selengkapnya
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function openHealth(id) {
+
+  const article =
+    healthArticles.find(item => item.id === id);
+
+  if (!article) return;
+
+  showPage("kesehatan");
+
+  const container =
+    document.getElementById("healthList");
+
+  container.innerHTML = `
+
+    <button
+      class="back-btn"
+      onclick="loadHealthArticles()"
+    >
+      ← Kembali
+    </button>
+
+    <div class="medicine-detail">
+
+      <div class="section-title">
+
+        <div style="font-size:50px;">
+          ${article.icon}
         </div>
+
+        <h2>${article.title}</h2>
+
+      </div>
+
+      <p>
+        ${article.text}
+      </p>
+
+      <div class="info-box">
+
+        <strong>Catatan:</strong>
+
+        <p>
+          Informasi pada halaman ini bersifat edukatif.
+          Untuk kondisi kesehatan tertentu, konsultasikan
+          dengan dokter atau apoteker.
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   APOTEKER
+===================================================== */
+
+function loadPharmacists() {
+
+  const container =
+    document.getElementById("pharmacistList");
+
+  container.innerHTML = pharmacists.map((pharmacist, index) => `
+
+    <div class="card pharmacist-card">
+
+      <div class="avatar">
+        🧑‍⚕️
+      </div>
+
+      <h3>
+        ${pharmacist.name}
+      </h3>
+
+      <p>
+        ${pharmacist.specialization}
+      </p>
+
+      <p>
+        Pengalaman: ${pharmacist.experience}
+      </p>
+
+      <span class="status">
+        ● ${pharmacist.status}
+      </span>
+
+      <br><br>
+
+      <button
+        class="btn"
+        onclick="openCounselor(${index})"
+      >
+        Konsultasi
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function openCounselor(index) {
+
+  const pharmacist = pharmacists[index];
+
+  const container =
+    document.getElementById("consultationContent");
+
+  container.innerHTML = `
+
+    <div class="form-card" style="margin-top:35px;">
+
+      <button
+        class="back-btn"
+        onclick="document.getElementById('consultationContent').innerHTML=''"
+      >
+        ← Tutup
+      </button>
+
+      <div class="section-title">
+
+        <h2>Konsultasi dengan Apoteker</h2>
+
+        <p>
+          ${pharmacist.name}
+        </p>
+
+      </div>
+
+      <div class="info-box">
+
+        <strong>Spesialisasi:</strong>
+        ${pharmacist.specialization}
+
+        <br>
+
+        <strong>Pengalaman:</strong>
+        ${pharmacist.experience}
+
+        <br>
+
+        <strong>Status:</strong>
+        ${pharmacist.status}
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Nama Anda
+        </label>
+
+        <input
+          type="text"
+          id="consultName"
+          placeholder="Masukkan nama"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Pertanyaan
+        </label>
+
+        <textarea
+          id="consultQuestion"
+          rows="6"
+          placeholder="Tuliskan pertanyaan mengenai obat atau kesehatan..."
+        ></textarea>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="sendQuestion('${pharmacist.name}')"
+      >
+        💬 Kirim Pertanyaan
+      </button>
+
+      <div id="consultMessage"></div>
+
+    </div>
+
+  `;
+
+  setTimeout(() => {
+
+    document.getElementById("consultationContent")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }, 100);
+
+}
+
+
+function sendQuestion(apoteker) {
+
+  const name =
+    document.getElementById("consultName").value.trim();
+
+  const question =
+    document.getElementById("consultQuestion").value.trim();
+
+  const message =
+    document.getElementById("consultMessage");
+
+  if (!name || !question) {
+
+    message.innerHTML = `
+      <div class="warning-box">
+        Nama dan pertanyaan harus diisi.
+      </div>
     `;
 
-    detail.scrollIntoView({
-        behavior:"smooth"
+    return;
+  }
+
+  message.innerHTML = `
+
+    <div class="info-box">
+
+      <strong>Pertanyaan berhasil dicatat.</strong>
+
+      <p>
+        Terima kasih ${name}. Pertanyaan Anda telah
+        disiapkan untuk konsultasi dengan ${apoteker}.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ANTIBIOTIK
+===================================================== */
+
+function loadAntibiotics() {
+
+  const container =
+    document.getElementById("antibioticList");
+
+  container.innerHTML = antibiotics.map(item => `
+
+    <div class="card">
+
+      <div class="card-icon">
+        💊
+      </div>
+
+      <h3>${item.brand}</h3>
+
+      <p>
+        <strong>Zat aktif:</strong>
+        ${item.active}
+      </p>
+
+      <p>
+        <strong>Kelas:</strong>
+        ${item.class}
+      </p>
+
+      <br>
+
+      <button
+        class="btn"
+        onclick="openAntibiotic(${item.id})"
+      >
+        Lihat Informasi
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function openAntibiotic(id) {
+
+  const item =
+    antibiotics.find(item => item.id === id);
+
+  if (!item) return;
+
+  const container =
+    document.getElementById("antibioticDetail");
+
+  container.innerHTML = `
+
+    <div class="medicine-detail" style="margin-top:30px;">
+
+      <button
+        class="back-btn"
+        onclick="document.getElementById('antibioticDetail').innerHTML=''"
+      >
+        ← Tutup
+      </button>
+
+      <div class="section-title">
+
+        <h2>${item.brand}</h2>
+
+        <p>${item.active}</p>
+
+      </div>
+
+      <div class="detail-list">
+
+        <div class="detail-item">
+          <strong>Kelas Antibiotik:</strong>
+          ${item.class}
+        </div>
+
+        <div class="detail-item">
+          <strong>Bentuk Sediaan:</strong>
+          ${item.form}
+        </div>
+
+        <div class="detail-item">
+          <strong>Indikasi:</strong>
+          ${item.indication}
+        </div>
+
+        <div class="detail-item">
+          <strong>Cara Penggunaan:</strong>
+          ${item.use}
+        </div>
+
+        <div class="detail-item">
+          <strong>Efek Samping:</strong>
+          ${item.sideEffects}
+        </div>
+
+        <div class="detail-item">
+          <strong>Peringatan:</strong>
+          ${item.warnings}
+        </div>
+
+      </div>
+
+      <div class="warning-box">
+
+        <h3>⚠️ Perhatikan</h3>
+
+        <p>
+          Antibiotik harus digunakan berdasarkan resep dan
+          petunjuk dokter. Jangan menggunakan antibiotik
+          secara sembarangan, menggunakan sisa obat, atau
+          memberikannya kepada orang lain.
+        </p>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="showPage('konseling')"
+      >
+        🩺 Konsultasikan dengan Apoteker
+      </button>
+
+    </div>
+
+  `;
+
+  setTimeout(() => {
+
+    container.scrollIntoView({
+      behavior: "smooth"
     });
 
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function loginUser(){
-
-    const name=document.getElementById("loginName").value.trim();
-    const message=document.getElementById("loginMessage");
-
-    if(!name){
-
-        message.innerHTML=`
-            <span style="color:#b85c7b;">
-                Silakan masukkan nama lengkap.
-            </span>
-        `;
-
-        return;
-    }
-
-    localStorage.setItem("pharmacareUser",name);
-
-    message.innerHTML=`
-        <div style="
-            background:#eaf8f0;
-            color:#277452;
-            padding:12px;
-            border-radius:12px;">
-
-            Selamat datang,
-            <strong>${name}</strong>! 🌸
-
-        </div>
-    `;
+  }, 100);
 
 }
 
 
-/* =========================================================
-   INIT
-========================================================= */
+/* =====================================================
+   LOAD AWAL
+===================================================== */
 
-window.onload=function(){
+window.onload = function() {
 
-    const savedName=localStorage.getItem("pharmacareUser");
+  loadHealthArticles();
 
-    if(savedName){
+  loadPharmacists();
 
-        document.getElementById("loginName").value=savedName;
-
-    }
+  loadAntibiotics();
 
 };
 
